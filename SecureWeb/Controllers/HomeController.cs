@@ -15,8 +15,12 @@ public class HomeController : Controller
 
     public IActionResult Index()
     {
-        ViewBag.username = "filistera";
-        string[] fruits = new string[] { "Apple","Coconut","Nut" };
+        if (!User.Identity.IsAuthenticated)
+        {
+            return RedirectToAction("Login", "Account");
+        }
+        ViewBag.username = User.Identity.Name;
+        string[] fruits = new string[] { "Banana","Mango","Orange" };
         ViewBag.fruits = fruits;
         return View();
     }
